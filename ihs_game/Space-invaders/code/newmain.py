@@ -141,6 +141,7 @@ class Game:
                     laser.kill()
                     self.lives -= 1
                     if self.lives <= 0:
+                        self.iniciar_leds()
                         pygame.quit()
                         sys.exit()
 
@@ -183,6 +184,9 @@ class Game:
         for i in range(num_leds_to_light):
             array.append(i)
             self.io.put_ar_LD(array)  # Substitua por sua função específica para acender LEDs
+    def iniciar_leds(self):
+        array = []
+        self.io.put_ar_LD(array)
     def run(self):
         self.player.update()
         self.aliens.update(self.alien_direction)
@@ -201,6 +205,7 @@ class Game:
         self.display_score()
         self.victory_message()
         self.update_display()
+        self.iniciar_leds()
         self.update_led_score()
         
 
@@ -218,18 +223,13 @@ if __name__ == '__main__':
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                game.iniciar_leds()
                 pygame.quit()
                 sys.exit()
             if event.type == ALIENLASER:
                 game.alien_shoot()
 
-        # Leitura dos botões da placa
-        if game.io.get_PB(1):  
-            game.player.sprite.move_left()
-        if game.io.get_PB(0):  
-            game.player.sprite.move_right()
-        if not game.io.get_PB(3): 
-            game.player.sprite.shoot()
+        
         if game.io.get_SW(0): 
             game.__init__()
 
