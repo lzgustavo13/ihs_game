@@ -19,15 +19,14 @@ HEX_D = 0xA1
 HEX_E = 0x86
 HEX_F = 0x8E
 
-PB    = 24930
-SW    = 24929
+PB = 24930
+SW = 24929
 DIS_L = 24931
 DIS_R = 24932
 LED_R = 24933
 LED_G = 24934
 
 class IO:
-
     def __init__(self) -> None:
         self.fd = os.open('/dev/mydev', os.O_RDWR)
         self.dev = SW
